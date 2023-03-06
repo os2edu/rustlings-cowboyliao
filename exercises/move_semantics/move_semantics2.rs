@@ -2,7 +2,6 @@
 // Make me compile without changing line 13 or moving line 10!
 // Execute `rustlings hint move_semantics2` or use the `hint` watch subcommand for a hint.
 
-// I AM NOT DONE
 /*
 So, `vec0` is passed into the `fill_vec` function as an argument. In Rust,
 when an argument is passed to a function and it's not explicitly returned,
@@ -17,16 +16,14 @@ There's a few ways to fix this, try them all if you want:
    and then copy the data within the function in order to return an owned
    `Vec<i32>`
 3. Make `fill_vec` *mutably* borrow a reference to its argument (which will need t
-o be
-   mutable), modify it directly, then not return anything. Then you can get rid
-   of `vec1` entirely -- note that this will change what gets printed by the
+o be mutable), modify it directly, then not return anything. Then you can get rid
+ of `vec1` entirely -- note that this will change what gets printed by the
    first `println!`
 */
 fn main() {
     let vec0 = Vec::new();
-    let vec2=vec0;
 
-    let mut vec1 = fill_vec(vec2);
+    let mut vec1 = fill_vec(&vec0); //borrow vec0 to function fill_vec()
 
     // Do not change the following line!
     println!("{} has length {} content `{:?}`", "vec0", vec0.len(), vec0);
@@ -36,12 +33,12 @@ fn main() {
     println!("{} has length {} content `{:?}`", "vec1", vec1.len(), vec1);
 }
 
-fn fill_vec(vec: Vec<i32>) -> Vec<i32> {
-    let mut vec = vec;
-
+fn fill_vec(vec: &Vec<i32>) -> Vec<i32> {
+    // vec: &Vec<i32>
+    let mut vec = vec.clone(); // I don't know
     vec.push(22);
     vec.push(44);
     vec.push(66);
 
-    vec
+    vec //return a new vec
 }
